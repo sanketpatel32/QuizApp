@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 2vh;
+}
+.card {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  width: 260px;
+  height: 130px;
+  border-radius: 10px;
+  flex-flow: column;
+  margin: 20px;
+  background-color: white;
+}
+.cardTopSide {
+  display: flex;
+  justify-content: center;
+  flex-flow: row;
+}
+.cardBottomSide {
+  display: flex;
+  justify-content: center;
+  flex-flow: row;
+}
