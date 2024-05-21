@@ -1,0 +1,35 @@
+.container {
+  padding: 0.5rem;
+  font-size: 1rem;
+  justify-content: center;
+  align-content: center;
+}
+/* 
+.functionDiv {
+
+} */
+
+.editIcon {
+  color: #854cff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin: 0 0.2rem;
+}
+.editIcon:hover{
+    box-shadow: 0 0 3px 2px rgb(77, 75, 75,0.3) ;
+}
+
+.shareIcon {
+  color: #d60000;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin: 0 0.2rem;
+}
+
+.deleteIcon {
+  
+  color: #60b84b;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin: 0 0.2rem;
+}
