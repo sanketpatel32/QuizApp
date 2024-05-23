@@ -57,7 +57,7 @@ const Login = () => {
 
           {!LoginDiv ?
             <form onSubmit={handleSignupSubmit} >
-              {/* ------Name-------------------- */}
+              {/* ----------------Name-------------------- */}
               <div className={styles.inputBox}>
                 <span className={styles.label}>Name</span>
                 <input

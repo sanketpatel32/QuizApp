@@ -1,9 +1,13 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import styles from './SideBar.module.css'
+import {ModalContext} from '../../context/ModalContext'
 import { SideBarContext } from '../../context/SideBarContext'
+import QuizCreatingModal from '../CreateQuiz/QuizCreatingModal'
+
 const SideBar = () => {
 
   const { optionSelected, setOptionSelected } = useContext(SideBarContext);
+  const { showQuizCreatingModal, setShowQuizCreatingModal } = useContext(ModalContext)
   const handleOptionChange = (newOption) => {
     setOptionSelected(newOption);
   };
@@ -14,7 +18,9 @@ const SideBar = () => {
       <div className={styles.optionsBar}>
         <div className={styles.options} onClick={() => handleOptionChange("Dashboard")}>Dashboard</div>
         <div className={styles.options} onClick={() => handleOptionChange("Analytics")}>Analytics</div>
-        <div className={styles.options} onClick={() => handleOptionChange("CreateQuiz")}>Create Quiz</div>
+        <div className={styles.options} onClick={() => setShowQuizCreatingModal(true)}>Create Quiz</div>
+
+        {showQuizCreatingModal && <QuizCreatingModal/>}
       </div>
       <div className={styles.bottomDiv}>
 
