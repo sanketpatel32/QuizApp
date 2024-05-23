@@ -2,9 +2,9 @@ import { useContext, useState } from "react";
 import globalModalStyles from "./Modal.module.css";
 import styles from './QuizCreatingModal.module.css';
 import { ModalContext } from "../../context/ModalContext";
-
+import { toast,Flip } from 'react-toastify';
 const QuizCreatingModal = () => {
-    const { showQuizCreatingModal, setShowQuizCreatingModal } = useContext(ModalContext);
+    const { showQuizCreatingModal, setShowQuizCreatingModal, showQnAQuizCreatingModal, setShowQnAQuizCreatingModal, showPollQuizCreatingModal, setShowPollQuizCreatingModal } = useContext(ModalContext);
 
 
     const [quizName, setQuizName] = useState("");
@@ -12,6 +12,32 @@ const QuizCreatingModal = () => {
         console.log(e.target.value);
         setQuizName(e.target.value);
     }
+    const submitHandler = (e) => {
+        e.preventDefault();
+
+        if (quizName === "") {
+            toast.error('Invalid Valid', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                progress: undefined,
+                theme: "light",
+                transition: Flip,
+            });
+        } else {
+            if (quizType === "QnA"){
+                setShowQuizCreatingModal(false);
+                setShowQnAQuizCreatingModal(true);
+            }
+            else if (quizType === "Poll")
+                setShowQuizCreatingModal(false);
+                setShowPollQuizCreatingModal(true);
+        }
+    };
+
 
     const [quizType, SetQuizType] = useState("QnA");
 
@@ -35,13 +61,13 @@ const QuizCreatingModal = () => {
 
                         <div className={styles.questionType}>
                             <span className={styles.label}>Quiz Type</span>
-                            <div className={`${styles.typeOptions} ${quizType === "QnA" ? styles.universalGreenBackground : ""}`} onClick={()=>SetQuizType("QnA")}>Q & A</div>
-                            <div className={`${styles.typeOptions} ${quizType === "Poll" ? styles.universalGreenBackground : ""}`} onClick={() => SetQuizType("Poll")}>Poll</div>
+                            <div className={`${styles.typeOptions} ${quizType === "QnA" ? styles.universalGreenBackground : ""}`} onClick={() => { SetQuizType("QnA") }}>Q & A</div>
+                            <div className={`${styles.typeOptions} ${quizType === "Poll" ? styles.universalGreenBackground : ""}`} onClick={() => { SetQuizType("Poll") }}>Poll</div>
                         </div>
 
                         <div className={styles.bottomDiv}>
                             <div className={styles.bottomDivOption} onClick={() => setShowQuizCreatingModal(false)}>Cancel</div>
-                            <div className={styles.bottomDivOption}>Continue</div>
+                            <div className={styles.bottomDivOption} onClick={submitHandler}>Continue</div>
                         </div>
 
 

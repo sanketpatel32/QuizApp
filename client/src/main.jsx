@@ -9,6 +9,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <SideBarContextProvider>
     <ModalContextProvider>
       <BrowserRouter>
+
         <App />
       </BrowserRouter>
     </ModalContextProvider>

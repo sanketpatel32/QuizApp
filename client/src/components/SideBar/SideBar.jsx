@@ -3,11 +3,12 @@ import styles from './SideBar.module.css'
 import {ModalContext} from '../../context/ModalContext'
 import { SideBarContext } from '../../context/SideBarContext'
 import QuizCreatingModal from '../CreateQuiz/QuizCreatingModal'
-
+import QnAQuizCreatingModal from '../CreateQuiz/QuizTypeModal/QnAQuizCreatingModal'
+import PollQuizCreatingModal from '../CreateQuiz/QuizTypeModal/PollQuizCreatingModal'
 const SideBar = () => {
 
-  const { optionSelected, setOptionSelected } = useContext(SideBarContext);
-  const { showQuizCreatingModal, setShowQuizCreatingModal } = useContext(ModalContext)
+  const { setOptionSelected } = useContext(SideBarContext);
+  const { showQuizCreatingModal, setShowQuizCreatingModal, showQnAQuizCreatingModal, setShowQnAQuizCreatingModal, showPollQuizCreatingModal, setShowPollQuizCreatingModal } = useContext(ModalContext)
   const handleOptionChange = (newOption) => {
     setOptionSelected(newOption);
   };
@@ -21,6 +22,8 @@ const SideBar = () => {
         <div className={styles.options} onClick={() => setShowQuizCreatingModal(true)}>Create Quiz</div>
 
         {showQuizCreatingModal && <QuizCreatingModal/>}
+        {showQnAQuizCreatingModal && <QnAQuizCreatingModal/>}
+        {showPollQuizCreatingModal && <PollQuizCreatingModal/>}
       </div>
       <div className={styles.bottomDiv}>
 
