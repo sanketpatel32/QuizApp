@@ -6,7 +6,8 @@ import bodyParser from "body-parser";
 import cors from 'cors';
 import connectToMongoDB from './config/connectToMongoDB.js';
 import authRoutes from './routes/auth.routes.js'
-
+import quizRoutes from './routes/quizzes.js';
+import analyticsRoutes from './routes/analytics.routes.js'
 
 // const __dirname = path.resolve();
 
@@ -30,7 +31,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //authentication
 app.use('/api/auth',authRoutes);
-
+app.use('/api/quiz',quizRoutes);
+app.use('/api/analytics',analyticsRoutes);
 
 app.get('/check', (req, res) => {
     res.send('Yes you are working')
