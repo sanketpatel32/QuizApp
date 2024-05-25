@@ -1,17 +1,21 @@
 import { useContext, useState } from "react";
+import { toast, Flip } from 'react-toastify';
+
 import globalModalStyles from "./Modal.module.css";
 import styles from './QuizCreatingModal.module.css';
-import { ModalContext } from "../../context/ModalContext";
-import { toast,Flip } from 'react-toastify';
-const QuizCreatingModal = () => {
-    const { showQuizCreatingModal, setShowQuizCreatingModal, showQnAQuizCreatingModal, setShowQnAQuizCreatingModal, showPollQuizCreatingModal, setShowPollQuizCreatingModal } = useContext(ModalContext);
 
+import { ModalContext } from "../../context/ModalContext";
+const QuizCreatingModal = () => {
+
+    const { setShowQuizCreatingModal, setShowQnAQuizCreatingModal, setShowPollQuizCreatingModal } = useContext(ModalContext);
 
     const [quizName, setQuizName] = useState("");
+
     const changeHandler = (e) => {
         console.log(e.target.value);
         setQuizName(e.target.value);
     }
+
     const submitHandler = (e) => {
         e.preventDefault();
 
@@ -28,16 +32,15 @@ const QuizCreatingModal = () => {
                 transition: Flip,
             });
         } else {
-            if (quizType === "QnA"){
+            if (quizType === "QnA") {
                 setShowQuizCreatingModal(false);
                 setShowQnAQuizCreatingModal(true);
             }
             else if (quizType === "Poll")
                 setShowQuizCreatingModal(false);
-                setShowPollQuizCreatingModal(true);
+            setShowPollQuizCreatingModal(true);
         }
     };
-
 
     const [quizType, SetQuizType] = useState("QnA");
 

@@ -58,7 +58,6 @@ export const login = async (req, res) => {
         
         // Generate JWT token and set cookie
         generateTokenAndSetCookie(user._id, res);
-        console.log("reached");
 
         // Send success response with user information
         res.status(200).json({

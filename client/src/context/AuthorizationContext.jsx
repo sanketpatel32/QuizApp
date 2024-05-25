@@ -1,9 +1,11 @@
-import { createContext, useState } from "react";
+import { createContext, useState,useEffect } from "react";
 
-const AuthorizationContext = createContext();
+export const AuthorizationContext = createContext();
 
 const AuthorizationContextProvider = ({ children }) => {
+
     const [userDetails, setUserDetails] = useState();
+    
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {

@@ -1,9 +1,13 @@
 import { createContext, useState } from "react";
 
 export const ModalContext = createContext();
+
 const ModalContextProvider = ({ children }) => {
+
     const [showQuizCreatingModal, setShowQuizCreatingModal] = useState(false);
-    const [showQnAQuizCreatingModal, setShowQnAQuizCreatingModal] = useState(false);
+
+    const [showQnAQuizCreatingModal, setShowQnAQuizCreatingModal] = useState(true);
+    
     const [showPollQuizCreatingModal, setShowPollQuizCreatingModal] = useState(false);
 
     return (

@@ -1,5 +1,5 @@
-import React from 'react'
 import styles from './TopDiv.module.css'
+
 const TopDiv = () => {
     return (
         <div className={styles.container}>

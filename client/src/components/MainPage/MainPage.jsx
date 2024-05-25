@@ -1,7 +1,8 @@
-import React from 'react'
 import styles from './MainPage.module.css'
+
 import TopDiv from './TopDiv/TopDiv'
 import TrendingQuiz from './TrendingQuiz/TrendingQuiz'
+
 const MainPage = () => {
   return (
     <div className={styles.container}>
@@ -9,10 +10,10 @@ const MainPage = () => {
         <TopDiv />
       </div>
       <div className={styles.TrendingQuiz}>
-        <TrendingQuiz/>
+        <TrendingQuiz />
       </div>
-      
-      </div>
+
+    </div>
   )
 }
 

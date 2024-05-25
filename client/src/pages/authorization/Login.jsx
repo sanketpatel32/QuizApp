@@ -1,11 +1,26 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import axios from 'axios';
+import { toast, Flip } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
+
+import { AuthorizationContext } from '../../context/AuthorizationContext.jsx';
+
 import styles from './Login.module.css';
+
 const Login = () => {
+
+  const navigate = useNavigate();
+
+
+  //------------------------------------------CONTEXTS-------------------------------------------------
+  const { userDetails, setUserDetails, isLoggedIn, setIsLoggedIn } = useContext(AuthorizationContext);
+
+
+  //------------------------------------------STATE----------------------------------------------------
   const [LoginDiv, setLoginDiv] = useState(false);
 
 
-
-  // -----------------------------------------SINGUP FORM UTILS-----------------------------------------
+  // -----------------------------------------SINGUP FORM UTILS----------------------------------------
   const [singupFormData, setSingupFormData] = useState({
     name: '',
     email: '',
@@ -21,16 +36,72 @@ const Login = () => {
   };
   const handleSignupSubmit = (e) => {
     e.preventDefault();
-    console.log('Signup data:', singupFormData);
-  };
+    if (singupFormData.password !== singupFormData.confirmPassword) {
+      toast.error('Password not matched', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: false,
+        progress: undefined,
+        theme: "light",
+        transition: Flip,
+      });
+    }
+    axios.post('/api/auth/register', singupFormData, { withCredentials: true })
+      .then((res) => {
+        const cookieValue = document.cookie
+          .split('; ')
+          .find(cookie => cookie.startsWith('__clerk_db_jwt='));
 
+        let jwtToken = null;
+        if (cookieValue) {
+          jwtToken = cookieValue.split('=')[1];
+        }
+        if (jwtToken) {
+          localStorage.setItem('jwt', jwtToken);
+          console.log('JWT token saved successfully:');
+        } else {
+          console.error('Failed to extract JWT token from the cookie.');
+        }
+        // --------
+        setUserDetails(res.data);
+        toast.success('SingUp successful', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          progress: undefined,
+          theme: "light",
+          transition: Flip,
+        });
+        setIsLoggedIn(true);
+        localStorage.setItem('currentUser', JSON.stringify(res.data));
+        navigate('/home');
+      })
+      .catch((err) => {
+        toast.error('Something Went Wrong', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          progress: undefined,
+          theme: "light",
+          transition: Flip,
+        });
+      })
+  };
+  
 
   // -----------------------------------------LOGIN FORM UTILS-----------------------------------------
   const [loginFormData, setLoginFormData] = useState({
     email: '',
     password: '',
   });
-
   const handleLoginChange = (e) => {
     const { name, value } = e.target;
     setLoginFormData({
@@ -38,9 +109,54 @@ const Login = () => {
       [name]: value
     });
   };
-  const handleLoginSubmit = (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    console.log('Login data:', loginFormData);
+    axios.post('/api/auth/login', loginFormData, { withCredentials: true })
+      .then((res) => {
+        const cookieValue = document.cookie
+          .split('; ')
+          .find(cookie => cookie.startsWith('__clerk_db_jwt='));
+
+        let jwtToken = null;
+        if (cookieValue) {
+          jwtToken = cookieValue.split('=')[1];
+        }
+        if (jwtToken) {
+          localStorage.setItem('jwt', jwtToken);
+          console.log('JWT token saved successfully:');
+        } else {
+          console.error('Failed to extract JWT token from the cookie.');
+        }
+        // --------
+        setUserDetails(res.data);
+        toast.success('Login successful', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          progress: undefined,
+          theme: "light",
+          transition: Flip,
+        });
+        setIsLoggedIn(true);
+        localStorage.setItem('currentUser', JSON.stringify(res.data));
+        navigate('/home');
+      })
+      .catch((err) => {
+        toast.error('Invalid Email or Password', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          progress: undefined,
+          theme: "light",
+          transition: Flip,
+        });
+      })
   };
 
 

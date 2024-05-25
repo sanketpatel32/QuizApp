@@ -1,10 +1,13 @@
 import { useContext } from "react"
+
+import styles from './Home.module.css'
+
 import MainPage from "../../components/MainPage/MainPage"
 import SideBar from "../../components/SideBar/SideBar"
-import styles from './Home.module.css'
-import { SideBarContext } from '../../context/SideBarContext'
 import Analytics from "../../components/Analytics/Analytics"
-import CreateQuiz from "../../components/CreateQuiz/CreateQuiz"
+
+import { SideBarContext } from '../../context/SideBarContext'
+
 const Home = () => {
   const { optionSelected, setOptionSelected } = useContext(SideBarContext);
   return (
@@ -15,9 +18,6 @@ const Home = () => {
       }
       {
         optionSelected === "Analytics" && <Analytics />
-      }
-      {
-        optionSelected === "CreateQuiz" && <CreateQuiz />
       }
     </div>
   )
